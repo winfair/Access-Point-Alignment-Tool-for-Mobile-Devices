@@ -1,0 +1,112 @@
+<!-- /index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"/>
+  <title>Heading-Up Navigation — MapLibre (Key-Free)</title>
+
+  <!-- MapLibre (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.3.0/dist/maplibre-gl.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.3.0/dist/maplibre-gl.js"></script>
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="./assets/styles.css"/>
+</head>
+<body>
+  <!-- Top nav linking the three pages -->
+  <div class="nav" role="navigation" aria-label="Site">
+    <a href="index.html">Main</a>
+    <a href="index-part2.html">Waypoints</a>
+    <a href="index-part3.html">Help</a>
+    <span class="spacer"></span>
+    <span style="font-size:12px;color:var(--dim)">AP Align</span>
+  </div>
+
+  <!-- Map container -->
+  <div id="map" aria-label="Map"></div>
+
+  <!-- Center arrow -->
+  <!-- Combined heading graphic: single SVG containing the center arrow and the heading line -->
+  <svg id="headingGraphic" aria-hidden="true" style="position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:visible">
+    <!-- dynamic line: JS will set coordinates -->
+    <line id="headingGraphicLine" x1="0" y1="0" x2="0" y2="0" stroke-width="2" stroke-linecap="round" />
+    <!-- arrow group (64x64 designed icon). JS will translate this group so its tip aligns with the line origin -->
+    <g id="headingGraphicArrow" transform="translate(0,0)">
+      <path d="M32 4 L52 40 L40 36 L40 60 L24 60 L24 36 L12 40 Z"></path>
+    </g>
+  </svg>
+
+  <!-- Status bar -->
+  <div class="status" id="status">
+    <button class="status-btn" id="btnGPS" type="button" title="Enable GPS">
+      <span class="dot" id="gpsDot"></span>
+      <span class="label">GPS</span>
+    </button>
+    <span class="divider" aria-hidden="true">|</span>
+    <button class="status-btn" id="btnCompass" type="button" title="Enable Compass">
+      <span class="dot" id="compassDot"></span>
+      <span class="label">Compass</span>
+    </button>
+    <span class="divider" aria-hidden="true">|</span>
+    <span id="bearingReadout" aria-live="polite" role="status" title="Bearing">–°</span>
+    <span class="status-msg" id="statusMsg" role="status" aria-live="polite"></span>
+  </div>
+
+  <!-- Waypoints FAB -->
+  <button id="fab" type="button" title="Waypoints">
+    <span aria-hidden="true" style="font-size:22px; line-height:1;">+</span>
+  </button>
+
+  <!-- Waypoints Panel -->
+  <div id="wpPanel" role="dialog" aria-modal="false" aria-labelledby="wpTitle">
+    <div class="wp-title">
+      <strong id="wpTitle">Waypoints</strong>
+      <button class="btn" id="wpClose" type="button" title="Close">
+        <span class="x">+</span>
+      </button>
+    </div>
+
+    <div class="wp-form">
+      <input id="wpName" class="wp-input" placeholder="Name (e.g., Home, Trailhead)" maxlength="60" />
+      <input id="wpCoords" class="wp-input"
+             placeholder='Coordinates (e.g., "34.1234 N, 118.5432 W" or "34.1234, -118.5432")' />
+      <div class="wp-actions">
+        <button id="wpAdd" class="btn primary" type="button">Add</button>
+        <button id="wpClear" class="btn" type="button" title="Clear inputs">Clear</button>
+      </div>
+    </div>
+
+    <div id="wpList" class="wp-list" aria-live="polite"></div>
+  </div>
+
+  <!-- Bottom sheet: heading offset -->
+  <div class="sheet">
+    <div class="row">
+      <label for="offset">Heading offset (°)</label>
+      <input id="offset" type="range" min="-45" max="45" step="1" value="0">
+      <div class="val"><span id="offsetVal">0</span>°</div>
+    </div>
+  </div>
+
+  <!-- Help overlay (opened on part3) -->
+  <div id="helpOverlay" aria-hidden="true">
+    <div class="help-card" role="dialog" aria-modal="false" aria-label="Help">
+      <h2>How to use</h2>
+      <p>• Tap GPS to start live location and follow mode.</p>
+      <p>• Tap Compass (allow permission on iPhone) for heading-up rotation.</p>
+      <p>• Adjust offset if your device case/mount skews the heading.</p>
+      <p>• Long-press map center to capture coords into Waypoints.</p>
+      <div class="btns">
+        <button class="btn" type="button"
+                onclick="document.getElementById('helpOverlay').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- App script (shared across all pages) -->
+  <script type="module" src="./js/app.js"></script>
+  <noscript>Please enable JavaScript to use this tool.</noscript>
+</body>
+</html>
