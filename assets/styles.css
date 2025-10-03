@@ -109,3 +109,16 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   #fab{ right:10px; bottom:88px; }
   #wpPanel{ right:10px; bottom:154px; width: calc(100% - 20px); }
 }
+
+/* ---------- Debug overlay (dev only) ---------- */
+#debugToggle{ position: fixed; left: 12px; bottom: 12px; z-index: 60; width:36px; height:36px; border-radius:8px; background:rgba(10,15,10,.9); border:1px solid rgba(178,255,189,.16); display:grid; place-items:center; cursor:pointer; }
+#debugToggle:hover{ background:rgba(10,15,10,1); }
+#debugPanel{ position: fixed; left: 12px; bottom: 56px; z-index: 60; width: min(420px, calc(100% - 28px)); max-height: 48vh; overflow:auto; background: rgba(4,6,7,.96); border:1px solid rgba(178,255,189,.12); border-radius:12px; padding:8px; display:none; box-shadow:0 12px 30px rgba(0,0,0,.6); color:var(--text); font-size:12px; }
+#debugPanel.open{ display:block; }
+#debugPanel .hdr{ display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:6px; }
+#debugPanel .hdr .title{ color:var(--dim); font-size:13px; }
+#debugPanel .list{ display:flex; flex-direction:column; gap:6px; }
+.dbg-row{ background:rgba(10,15,10,.6); border:1px solid rgba(178,255,189,.06); border-radius:8px; padding:8px; font-family:inherit; }
+.dbg-row .ts{ color:var(--dim); font-size:11px; }
+.dbg-row .coords{ color:var(--text); font-size:13px; margin-top:4px; }
+.dbg-row .meta{ color:var(--dim); font-size:11px; margin-top:4px; }

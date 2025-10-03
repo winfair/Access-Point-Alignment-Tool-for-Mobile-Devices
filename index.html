@@ -108,5 +108,15 @@
   <!-- App script (shared across all pages) -->
   <script type="module" src="./js/app.js"></script>
   <noscript>Please enable JavaScript to use this tool.</noscript>
+
+  <!-- Debug overlay (dev) -->
+  <button id="debugToggle" title="Toggle debug">🐞</button>
+  <div id="debugPanel" aria-hidden="true">
+    <div class="hdr">
+      <div class="title">Dev: Recent GPS fixes</div>
+      <div><button class="btn" id="dbgClear" type="button">Clear</button></div>
+    </div>
+    <div class="list" id="dbgList"></div>
+  </div>
 </body>
 </html>
